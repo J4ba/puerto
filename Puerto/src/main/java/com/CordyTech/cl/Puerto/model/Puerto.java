@@ -28,7 +28,7 @@ public class Puerto {
     @Column(nullable=false)
     private float tarifaHora;
     
-    @Column(nullable=false)
+    @Column
     private float tarifaEslora;
 
     @Column(nullable=false)
