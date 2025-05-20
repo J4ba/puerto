@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/puertos")
@@ -27,6 +29,13 @@ public class PuertoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/nombres")
+    public ResponseEntity<Puerto> obtenerPuertoPorNombre(@PathVariable String nombrePuerto) {
+        return puertoService.obtenerPuertoPorNombre(nombrePuerto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     public Puerto guardar(@RequestBody Puerto puerto) {
         return puertoService.guardarPuerto(puerto);
@@ -36,5 +45,20 @@ public class PuertoController {
     public ResponseEntity<Void> eliminar(@PathVariable int id) {
         puertoService.eliminarPuerto(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/disponibles")
+    public List<Puerto> getPuertosDisponibles() {
+        return puertoService.getDisponibles();
+    }
+
+    @GetMapping("/tarifas")
+    public List<Map<String, Object>> getTarifasPuertos(){
+        return puertoService.getTarifas();
+    }
+
+    @GetMapping("/{id}/tarifas")
+    public Map<String, Object> getTarifasById(@PathVariable int id){
+        return puertoService.getTarifasById(id);
     }
 }

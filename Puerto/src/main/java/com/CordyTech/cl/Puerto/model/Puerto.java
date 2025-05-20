@@ -22,7 +22,7 @@ public class Puerto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPuerto;
 
-    @Column(nullable=true)
+    @Column
     private String nombrePuerto;
 
     @Column(nullable=false)
